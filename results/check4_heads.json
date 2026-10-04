@@ -1,0 +1,51 @@
+{
+ "repo": "ibm-granite/granite-timeseries-tspulse-r1",
+ "revision": "main",
+ "config": "common_channel, univariate per channel, scaling=revin, mask_type=user, prediction_mode=forecast+time+fft, aggr=96, smooth=8",
+ "seed": 20260822,
+ "window": [
+  512,
+  4
+ ],
+ "scored_region": [
+  416,
+  512
+ ],
+ "MISSING_weights": false,
+ "time": {
+  "self_median": 0.0,
+  "self_iqr": [
+   0.0,
+   0.0
+  ],
+  "self_max": 0.0,
+  "frac_exact_zero": 1.0,
+  "structural_zero": true,
+  "forward_reach": 48,
+  "median_clean_residual": 0.17145276069641113
+ },
+ "fft": {
+  "self_median": 0.0,
+  "self_iqr": [
+   0.0,
+   0.0
+  ],
+  "self_max": 0.0,
+  "frac_exact_zero": 1.0,
+  "structural_zero": true,
+  "forward_reach": 48,
+  "median_clean_residual": 0.13740156590938568
+ },
+ "forecast": {
+  "self_derivative": 0.0,
+  "structural_zero": true,
+  "reason": "forecast_output[:,0] estimates the step after the context; that point is not in the input window (scored via future_values in compute_score)",
+  "forward_reach": 0,
+  "max_abs_derivative_on_context": 0.6423133015632629
+ },
+ "spread_time_vs_fft": {
+  "median_abs": 0.07070013135671616,
+  "max_abs": 0.3346409499645233
+ },
+ "spread_forecast_note": "forecast estimates the post-window point, not the in-window scored positions; |xhat_forecast - xhat_time/fft| at the same in-window t needs a sliding-window alignment convention not fixed by the spec"
+}

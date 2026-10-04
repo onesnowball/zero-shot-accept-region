@@ -1,0 +1,112 @@
+{
+  "window": [
+    512,
+    4
+  ],
+  "seed": 20260822,
+  "n_positions": 96,
+  "rows": [
+    {
+      "name": "PCA (analytic control)",
+      "family": "linear",
+      "predicted_J": "nonzero, = ||v_i||^2",
+      "prediction_source": "closed form for xhat = V V^T x",
+      "n_positions": 96,
+      "J_median": 0.00380232569295913,
+      "J_max": 0.01412966288626194,
+      "J_p95": 0.007203090935945511,
+      "frac_below_1e6": 0.0,
+      "note": "validator: measurement must match ||v_i||^2 to float precision",
+      "analytic_max_abs_err": 9.313225746154785e-10
+    },
+    {
+      "name": "identity shortcut",
+      "family": "self-recon",
+      "predicted_J": "nonzero, = 1",
+      "prediction_source": "xhat = x by definition",
+      "n_positions": 96,
+      "J_median": 1.0,
+      "J_max": 1.0,
+      "J_p95": 1.0,
+      "frac_below_1e6": 0.0,
+      "note": "upper anchor; the failure mode masking was invented to prevent"
+    },
+    {
+      "name": "causal conv (forecaster-style)",
+      "family": "forecaster",
+      "predicted_J": "0",
+      "prediction_source": "strictly causal kernel excludes position t",
+      "n_positions": 96,
+      "J_median": 0.0,
+      "J_max": 0.0,
+      "J_p95": 0.0,
+      "frac_below_1e6": 1.0,
+      "note": "lower anchor; J=0 by causality, not by design choice"
+    },
+    {
+      "name": "window AE, unmasked",
+      "family": "self-recon",
+      "predicted_J": "nonzero",
+      "prediction_source": "the guarded value is an encoder input",
+      "n_positions": 96,
+      "J_median": 0.009316661395132542,
+      "J_max": 0.02538745477795601,
+      "J_p95": 0.02244398696348071,
+      "frac_below_1e6": 0.0,
+      "note": "the identity-shortcut class"
+    },
+    {
+      "name": "window AE, inference-active self-mask",
+      "family": "masked-recon",
+      "predicted_J": "0",
+      "prediction_source": "position zeroed before encoding (DeepFIB/RIAD-style)",
+      "n_positions": 96,
+      "J_median": 0.0,
+      "J_max": 0.0,
+      "J_p95": 0.0,
+      "frac_below_1e6": 1.0,
+      "note": "THE CONTESTED CASE: does temporal mixing leak the masked value back through neighbouring positions?"
+    },
+    {
+      "name": "masked attn, 1 layer (self-mask only)",
+      "family": "masked-recon",
+      "predicted_J": "0",
+      "prediction_source": "UniAD-style: point attends to neither itself nor neighbours",
+      "n_positions": 96,
+      "J_median": 0.2273002341389656,
+      "J_max": 0.42543715238571167,
+      "J_p95": 0.4254189133644104,
+      "frac_below_1e6": 0.0,
+      "note": "single layer: the mask genuinely excludes the position"
+    },
+    {
+      "name": "masked attn, 4 layers + residual (UniAD depth)",
+      "family": "masked-recon",
+      "predicted_J": "0",
+      "prediction_source": "same architectural claim, applied to the deployed depth",
+      "n_positions": 96,
+      "J_median": 0.21976597607135773,
+      "J_max": 0.42780056595802307,
+      "J_p95": 0.4277558997273445,
+      "frac_below_1e6": 0.0,
+      "note": "R1's contested case: does a per-layer mask survive composition?"
+    },
+    {
+      "name": "masked attn, 4 layers, 7-wide band (UniAD default)",
+      "family": "masked-recon",
+      "predicted_J": "0",
+      "prediction_source": "UniAD ships neighbor_size 7x7 with 4+4 layers",
+      "n_positions": 96,
+      "J_median": 0.21975983679294586,
+      "J_max": 0.4278460443019867,
+      "J_p95": 0.4277316778898239,
+      "frac_below_1e6": 0.0,
+      "note": "the shipped configuration"
+    }
+  ],
+  "disagreements": [
+    "masked attn, 1 layer (self-mask only): predicted 0, measured median |J| = 0.2273",
+    "masked attn, 4 layers + residual (UniAD depth): predicted 0, measured median |J| = 0.2198",
+    "masked attn, 4 layers, 7-wide band (UniAD default): predicted 0, measured median |J| = 0.2198"
+  ]
+}

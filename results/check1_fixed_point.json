@@ -1,0 +1,133 @@
+{
+ "repo": "ibm-granite/granite-timeseries-tspulse-r1",
+ "revision": "b12164578f7b893ada0028c00d292ba10383d25a",
+ "commit": "b12164578f7b893ada0028c00d292ba10383d25a",
+ "seed": 20260822,
+ "dtype": "float32",
+ "device": "cpu",
+ "context": 512,
+ "n_positions": 64,
+ "tol": 1e-05,
+ "median_abs_d_clean": 0.2719455063343048,
+ "runs": {
+  "clean": {
+   "fixed_point": {
+    "converged": 64,
+    "of": 64,
+    "median_passes": 7.0,
+    "max_passes": 20,
+    "median_abs_r_after_pass": {
+     "1": 0.011760123074054718,
+     "2": 0.0034809410572052,
+     "5": 9.658932685852051e-05,
+     "10": 1.4901161193847656e-07,
+     "20": 0.0,
+     "30": 0.0
+    },
+    "median_abs_r_start": 0.038119226694107056,
+    "median_ratio": 0.31432798504829407,
+    "median_abs_d_at_final_point": 0.28164809942245483,
+    "median_abs_d_at_converged_points": 0.28164809942245483,
+    "plateau_median_abs_r_nonconverged": null,
+    "other_position_residual_change_median": 0.014363005757331848,
+    "other_position_residual_change_max": 0.06541693210601807,
+    "non_converging": []
+   },
+   "newton": {
+    "converged": 64,
+    "of": 64,
+    "median_steps": 2.0,
+    "max_steps": 4,
+    "median_ratio": 0.018267959356307983,
+    "median_abs_d_at_final_point": 0.2863937020301819,
+    "median_abs_d_at_converged_points": 0.2863937020301819,
+    "plateau_median_abs_r_nonconverged": null,
+    "other_position_residual_change_median": 0.014363065361976624,
+    "other_position_residual_change_max": 0.06541696190834045,
+    "non_converging": []
+   }
+  },
+  "clean+3sigma": {
+   "fixed_point": {
+    "converged": 64,
+    "of": 64,
+    "median_passes": 10.0,
+    "max_passes": 25,
+    "median_abs_r_after_pass": {
+     "1": 0.3723136782646179,
+     "2": 0.13154098391532898,
+     "5": 0.004045248031616211,
+     "10": 8.463859558105469e-06,
+     "20": 0.0,
+     "30": 0.0
+    },
+    "median_abs_r_start": 1.1386860609054565,
+    "median_ratio": 0.31635913252830505,
+    "median_abs_d_at_final_point": 0.28164809942245483,
+    "median_abs_d_at_converged_points": 0.28164809942245483,
+    "plateau_median_abs_r_nonconverged": null,
+    "other_position_residual_change_median": 0.014363005757331848,
+    "other_position_residual_change_max": 0.06541696190834045,
+    "non_converging": []
+   },
+   "newton": {
+    "converged": 64,
+    "of": 64,
+    "median_steps": 4.0,
+    "max_steps": 6,
+    "median_ratio": 0.06348833441734314,
+    "median_abs_d_at_final_point": 0.2863937020301819,
+    "median_abs_d_at_converged_points": 0.2863937020301819,
+    "plateau_median_abs_r_nonconverged": null,
+    "other_position_residual_change_median": 0.014363005757331848,
+    "other_position_residual_change_max": 0.06541696190834045,
+    "non_converging": []
+   }
+  },
+  "clean+10sigma": {
+   "fixed_point": {
+    "converged": 64,
+    "of": 64,
+    "median_passes": 11.0,
+    "max_passes": 26,
+    "median_abs_r_after_pass": {
+     "1": 1.0331645011901855,
+     "2": 0.36325734853744507,
+     "5": 0.012213028967380524,
+     "10": 3.413110971450806e-05,
+     "20": 0.0,
+     "30": 0.0
+    },
+    "median_abs_r_start": 3.7970526218414307,
+    "median_ratio": 0.318631112575531,
+    "median_abs_d_at_final_point": 0.28164809942245483,
+    "median_abs_d_at_converged_points": 0.28164809942245483,
+    "plateau_median_abs_r_nonconverged": null,
+    "other_position_residual_change_median": 0.014363005757331848,
+    "other_position_residual_change_max": 0.06541696190834045,
+    "non_converging": []
+   },
+   "newton": {
+    "converged": 63,
+    "of": 64,
+    "median_steps": 4.0,
+    "max_steps": 6,
+    "median_ratio": 0.03790878504514694,
+    "median_abs_d_at_final_point": 0.2863937020301819,
+    "median_abs_d_at_converged_points": 0.28164809942245483,
+    "plateau_median_abs_r_nonconverged": 0.006252303719520569,
+    "other_position_residual_change_median": 0.014398306608200073,
+    "other_position_residual_change_max": 0.06541696190834045,
+    "non_converging": [
+     {
+      "t": 78,
+      "c": 3,
+      "d_final": 0.8411245346069336,
+      "final_abs_r": 0.006252303719520569,
+      "behaviour": "plateau"
+     }
+    ]
+   }
+  }
+ }
+}

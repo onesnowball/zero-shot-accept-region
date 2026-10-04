@@ -1,0 +1,24 @@
+{
+  "TSPulse, all-observed (R1's reading)": {
+    "n": 64,
+    "median": 0.2741505354642868,
+    "max": 0.6252040863037109,
+    "p95": 0.4822986438870429,
+    "frac_exact_zero": 0.0,
+    "prediction": "0",
+    "prediction_source": "TSPulse paper A.8.2: AD heads reconstruct the input; masking is described only for pre-training",
+    "note": "if this is the deployed AD path, the scored point IS an input",
+    "agrees": false
+  },
+  "TSPulse, evaluated patch masked (R2's reading)": {
+    "n": 64,
+    "median": 0.0,
+    "max": 0.0,
+    "p95": 0.0,
+    "frac_exact_zero": 1.0,
+    "prediction": "0",
+    "prediction_source": "granite-tsfm patchwise_stitched_reconstruction: 'Only patches whose start indices fall within [start,end) are masked and reconstructed'",
+    "note": "patch length 8; masking is patch-granular, not point-granular",
+    "agrees": true
+  }
+}

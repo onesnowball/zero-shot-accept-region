@@ -1,0 +1,104 @@
+{
+  "model": "google/timesfm-2.5-200m-pytorch",
+  "license": "Apache-2.0 (public weights)",
+  "detector": "Anand/Nguyen/Pappas arXiv:2606.06347 Algorithm 1",
+  "seed": 33,
+  "channels": 4,
+  "context": 256,
+  "fpr_target": 0.01,
+  "tau": 13.276704135987622,
+  "tau_rule": "Proposition 1 chi2 quantile",
+  "tau_empirical_alt": 13.866676996146829,
+  "innovation_corr": [
+    [
+      1.0,
+      0.1686,
+      -0.079,
+      -0.0856
+    ],
+    [
+      0.1686,
+      1.0,
+      -0.2219,
+      0.0983
+    ],
+    [
+      -0.079,
+      -0.2219,
+      1.0,
+      -0.0478
+    ],
+    [
+      -0.0856,
+      0.0983,
+      -0.0478,
+      1.0
+    ]
+  ],
+  "clean_state_scale": 1.1559018561133663,
+  "drift": {
+    "n": 320,
+    "at_25pct_synthetic": 2.2456898088575263,
+    "at_100pct_synthetic": 29225.224388485978,
+    "final": 203298384642067.22,
+    "max": 203298384642067.22
+  },
+  "conditions": {
+    "clean": {
+      "n": 120,
+      "mean": 4.555544566273885,
+      "median": 3.7870043711879005,
+      "max": 20.538459194287597,
+      "alarm_rate": 0.016666666666666666
+    },
+    "naive_gaussian_ch0": {
+      "n": 120,
+      "mean": 377.3837039452592,
+      "median": 196.09816029827914,
+      "max": 1651.7201281166447,
+      "alarm_rate": 0.9
+    },
+    "naive_replay_ch0": {
+      "n": 120,
+      "mean": 621.5644157598084,
+      "median": 453.6656488802296,
+      "max": 1724.414883863671,
+      "alarm_rate": 0.9583333333333334
+    },
+    "naive_hold_ch0": {
+      "n": 120,
+      "mean": 5.27912951098153,
+      "median": 4.265525954359684,
+      "max": 21.67924716615982,
+      "alarm_rate": 0.058333333333333334
+    },
+    "anomaly_bias_ch0": {
+      "n": 120,
+      "mean": 13.968031465217162,
+      "median": 12.687093708139223,
+      "max": 33.330826707988464,
+      "alarm_rate": 0.4666666666666667
+    },
+    "forgery_ch0": {
+      "n": 120,
+      "mean": 3.4615859090333214,
+      "median": 2.6298525121434047,
+      "max": 14.640167216094623,
+      "alarm_rate": 0.016666666666666666
+    },
+    "forgery_all_chan": {
+      "n": 20,
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0,
+      "alarm_rate": 0.0
+    },
+    "forgery_sustained": {
+      "n": 320,
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0,
+      "alarm_rate": 0.0
+    }
+  }
+}

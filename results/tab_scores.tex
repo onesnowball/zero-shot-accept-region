@@ -1,0 +1,16 @@
+\begin{tabular}{lrrr}
+\toprule
+Condition ($n$ per seed) & mean $g_s$ & max $g_s$ & alarm \\
+\midrule
+clean (120) & 3.44--4.56 & 12.4--20.5 & 0.0--2.5\% \\
+naive: matched Gaussian, ch 0 (120) & 299--382 & 1314--1775 & 87.5--90.0\% \\
+naive: replayed segment, ch 0 (120) & 493--629 & 1354--1724 & 94.2--95.8\% \\
+naive: constant hold, ch 0 (120) & 4.02--5.28 & 15.4--21.7 & 1.7--5.8\% \\
+bias injection $3\sigma$, ch 0 (120) & 12.5--14.1 & 28.1--43.1 & 42.5--51.7\% \\
+\midrule
+precomputed substitution, ch 0 only (120) & 2.59--3.46 & 9.91--16.2 & 0.0--1.7\% \\
+\multicolumn{4}{l}{\emph{demonstration (zero by construction)}} \\
+precomputed substitution, all channels (20) & $0$ & $0$ & 0.0\% \\
+precomputed substitution, 320-step rollout (320) & $0$ & $0$ & 0.0\% \\
+\bottomrule
+\end{tabular}

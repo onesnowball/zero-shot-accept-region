@@ -1,0 +1,25 @@
+{
+ "model": "AutonLab/MOMENT-1-base",
+ "via": "TSB-AD run_MOMENT_ZS path (MOMENTPipeline reconstruction, input_mask=ones, no mask= arg)",
+ "momentfm_version": "0.1.4",
+ "device": "cpu",
+ "dtype": "float32",
+ "seed": 20260822,
+ "window": 256,
+ "n_positions": 64,
+ "differences_from_wrapper": [
+  "wrapper runs under torch.no_grad(); here grads are on",
+  "wrapper hardcodes cuda; device here=cpu",
+  "context 256 (MOMENT win_size) vs 512 in section 3; 4 channels kept"
+ ],
+ "median_abs_self_derivative": 0.03127801790833473,
+ "iqr_abs_self_derivative": [
+  0.017466564662754536,
+  0.06623143330216408
+ ],
+ "max_abs_self_derivative": 0.19597548246383667,
+ "frac_exact_zero": 0.0,
+ "structural_zero": false,
+ "zero_kind": "n/a",
+ "forward_reach": 48
+}
