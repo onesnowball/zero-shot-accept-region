@@ -20,6 +20,8 @@ assert abs(d["all_observed"]["diag_median"]
            - ckpt["TSPulse, all-observed (R1's reading)"]["median"]) < 1e-6
 assert d["patch_masked"]["diag_max"] == 0.0
 
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["ps.fonttype"] = 42
 plt.rcParams.update({"font.family": "serif", "font.serif": ["Times New Roman", "Times", "STIXGeneral"], "font.size": 8,
                      "axes.spines.top": False, "axes.spines.right": False,
                      "mathtext.fontset": "stix"})
