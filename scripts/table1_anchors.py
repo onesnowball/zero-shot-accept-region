@@ -1,37 +1,13 @@
 """
-The measured partition: does a deployed detector's estimate of a channel read
-that channel?
+Table 1 anchor rows: measures the self-derivative |d xhat[t,c]/d x[t,c]| by
+autodiff for three analytic estimators (PCA projector, identity shortcut,
+strictly causal), whose values are known in closed form and validate the autodiff
+harness. PCA must reproduce ||v_i||^2 to float precision.
 
-WHY THIS EXISTS
-    Every claim of the form "architecture X has dxhat_i/dx_i = 0" in this
-    literature is an argument from a model card. Nobody has measured it at the
-    DEPLOYED configuration. Two of our own reviewers reached opposite readings
-    of TSPulse's anomaly-detection path from its source code. Autodiff settles
-    it; prose does not.
-
-THE PROTOCOL (pre-registration, per the panel's requirement)
-    For every detector we FIRST record `predicted_J` -- what a competent reader
-    would conclude from the architecture description alone, with the source --
-    and only then measure. The paper reports the DISAGREEMENTS. A table with no
-    disagreements says the property is readable off the architecture diagram and
-    the measurement was unnecessary; that outcome is reportable and it weakens
-    the paper. Say so rather than discovering it later.
-
-WHAT THIS SHOWS IF THE PHENOMENON IS ABSENT
-    If every detector measures J ~ 0, there is no partition, the criterion is a
-    restatement of architecture family, and the central claim fails. If every
-    detector measures J >> 0, the free-forgery case is empty in practice. Both
-    are distinguishable outcomes. This instrument can return an answer that
-    kills the paper, which is the property the previous three instruments in
-    this project lacked.
-
-VALIDATION
-    PCA is included as an analytic control: for xhat = V V^T x the diagonal of
-    the Jacobian is exactly ||v_i||^2, known in closed form. If the harness does
-    not reproduce that to float precision, no other row is trustworthy.
-
-Run:  python3 basisgate/code/partition.py
+Input: the synthetic window from synthetic.py (seed 20260822), 96 positions.
+Writes results/partition.json. Run: python scripts/table1_anchors.py (or run_all.sh).
 """
+
 import json
 import traceback
 from dataclasses import dataclass, field
@@ -196,7 +172,7 @@ def build_masked_attention(n_layers=4, neighbor=0, residual=True):
 
     The architectural reading says d xhat_t / d x_t = 0.
 
-    R1's objection: masked attention COMPOSED over residual layers is not a
+    Masked attention composed over residual layers is not a
     masked composition. Token j (outside the mask of i) may attend to i at
     layer 1; token i may attend to j at layer 2. On a grid with many relay
     nodes, information routes around the mask. This is the PixelCNN blind-spot
@@ -285,7 +261,7 @@ REGISTRY = [
         predicted_J="0",
         prediction_source="same architectural claim, applied to the deployed depth",
         build=lambda: build_masked_attention(n_layers=4, neighbor=0),
-        note="R1's contested case: does a per-layer mask survive composition?",
+        note="does a per-layer mask survive composition?",
     ),
     Detector(
         name="masked attn, 4 layers, 7-wide band (UniAD default)",
@@ -361,7 +337,7 @@ def main():
     else:
         print("  No disagreements. Every measurement matched its architectural")
         print("  prediction. The criterion is readable off the model card, and")
-        print("  the paper must say so -- this weakens the contribution.")
+        print("  the measurement would be unnecessary.")
     print("=" * 78)
 
     res = {"window": [T, C], "seed": SEED, "n_positions": len(positions),

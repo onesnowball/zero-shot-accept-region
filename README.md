@@ -37,10 +37,10 @@ Outputs land in `results/` (JSON records and the LaTeX macro files
 the TSPulse pipeline, so `run_all.sh` sets `CUDA_VISIBLE_DEVICES=""` and the
 scripts load and run all models on CPU.
 
-**Expected runtime (CPU, 8 cores):** about 2 hours total. Approximate per step:
-Table 2 / 5 seeds ~35 min (the largest), MOMENT ~25 min, the substitution
-pipeline ~15 min, the TSPulse AD heads ~10 min, the fixed-point pricing ~5 min,
-the anchors and imputation probes ~2 min each, figure and macros < 1 min.
+**Measured runtime:** about 36 minutes total on CPU (single process). The
+Table 2 five-seed run dominates; the MOMENT probe, the substitution pipeline,
+and the TSPulse AD-head probe are the next largest; the anchors, the imputation
+probe, the figure, and the macros are quick.
 
 ## Pinned checkpoints
 

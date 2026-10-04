@@ -1,5 +1,5 @@
 {
-  "TSPulse, all-observed (R1's reading)": {
+  "TSPulse imputation, all-observed": {
     "n": 64,
     "median": 0.2741505354642868,
     "max": 0.6252040863037109,
@@ -10,7 +10,7 @@
     "note": "if this is the deployed AD path, the scored point IS an input",
     "agrees": false
   },
-  "TSPulse, evaluated patch masked (R2's reading)": {
+  "TSPulse imputation, evaluated patch masked": {
     "n": 64,
     "median": 0.0,
     "max": 0.0,

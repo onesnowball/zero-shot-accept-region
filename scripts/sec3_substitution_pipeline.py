@@ -1,8 +1,13 @@
-"""Step 6: end-to-end substitution through the shipped reference pipeline.
-At each of 64 positions (one per run), set x[t] to (a) each reconstruction
-head's own estimate and (b) the Chebyshev midpoint of the two head estimates
-(closed-form minimizer of max of the two squared residuals), then read the
-pipeline's anomaly_score at t. No gradients."""
+"""
+Section 3 single-point substitution: through the shipped TSPulse reference
+pipeline, at each of 64 positions (one per run) sets x[t] to each reconstruction
+head's own estimate and to the midpoint of the two, then reads the pipeline's
+anomaly_score at t.
+
+Input: the synthetic window from synthetic.py (seed 20260822).
+Writes results/check5_substitution.json. Run: python scripts/sec3_substitution_pipeline.py (or run_all.sh).
+"""
+
 import json, sys, warnings
 from pathlib import Path
 import numpy as np, pandas as pd, torch

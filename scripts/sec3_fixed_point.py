@@ -1,20 +1,13 @@
 """
-CHECK 1. Can an attacker reach zero residual when the estimate reads its own input?
+Section 3 iteration cost: how many passes reach a zero residual when the estimate
+reads its own input. For the TSPulse imputation all-observed call, at each of 64
+positions it iterates x <- xhat(x) (fixed point, up to 30 passes) and Newton (up
+to 10 steps), from three starts (clean, +3 sigma, +10 sigma).
 
-TSPulse-r1, all-observed calling convention, the Table 1 setup exactly:
-same revision, same synthetic window and seed, same 64 positions (t, c),
-xhat taken through the full model call (scaler included).
-
-For each position only x[t,c] is changed; every other input stays clean.
-Three starts: clean, clean + 3 sigma, clean + 10 sigma (sigma = that channel's
-std over the window).
-  fixed point  x_{k+1} = xhat(x_k)[t,c]                      up to 30 passes
-  Newton       x_{k+1} = x_k - r_k / (1 - d_k)               up to 10 steps
-               r_k = x_k - xhat(x_k)[t,c],  d_k = d xhat[t,c]/d x[t,c] at x_k
-Converged means |r_k| < 1e-5.
-
-Run:  python3 basisgate/camera_ready_checks/check1_fixed_point.py
+Input: the synthetic window from synthetic.py (seed 20260822).
+Writes results/check1_fixed_point.json. Run: python scripts/sec3_fixed_point.py (or run_all.sh).
 """
+
 import json
 import sys
 import warnings
@@ -42,7 +35,7 @@ def main():
     m.eval()
     ctx = m.config.context_length
     x0 = torch.tensor(make_window(ctx), dtype=torch.float32)          # [L, C]
-    rng = np.random.default_rng(SEED)                                  # as checkpoints.py
+    rng = np.random.default_rng(SEED)                                  # shared probe seed
     ts = rng.choice(np.arange(32, ctx - 32), size=N_PROBE, replace=False)
     pos = [(int(t), int(c)) for t in ts for c in range(N_CH)]
     P = len(pos)

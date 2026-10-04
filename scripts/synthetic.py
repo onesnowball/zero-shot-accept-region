@@ -1,10 +1,11 @@
-"""Synthetic data generator shared by the probe scripts (Table 1, appendix
-figure, and the Section 3 numbers). Copied verbatim from the paper's code.
-
-The Section 4 detector (Table 2, rollout) uses a second generator, make_system,
-which lives in table2_timesfm_falsification.py because it is coupled to that
-script's per-seed RNG; it shares the same latent structure as make_window below.
 """
+Synthetic data generator shared by the probe scripts (Table 1, the appendix
+figure, and the Section 3 numbers): make_window builds a deterministic 4-channel
+window from a seed. The Section 4 process generator (make_system) lives in
+table2_timesfm_falsification.py, where it is tied to that script's per-seed RNG
+and shares the same latent structure as make_window.
+"""
+
 import numpy as np
 
 SEED = 20260822       # probe seed (Table 1, appendix figure, Section 3 probes)

@@ -1,5 +1,12 @@
-"""MOMENT zero-shot self-derivative, reproducing TSB-AD's zero_shot call with
-gradients on. Differences from the wrapper are listed in the output."""
+"""
+Table 1 MOMENT row: measures the self-derivative |d xhat[t,c]/d x[t,c]| for
+MOMENT-1-base in zero-shot reconstruction, reproducing the model's scoring call
+with gradients enabled (CPU).
+
+Input: the synthetic window from synthetic.py (seed 20260822), 256-step window.
+Writes results/check2_moment.json. Run: python scripts/table1_moment.py (or run_all.sh).
+"""
+
 import json, sys, warnings, numpy as np, torch
 from pathlib import Path
 _RES=Path(__file__).resolve().parent.parent/"results"; _RES.mkdir(parents=True, exist_ok=True)

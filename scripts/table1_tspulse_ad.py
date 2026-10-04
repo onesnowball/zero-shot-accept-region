@@ -1,3 +1,13 @@
+"""
+Table 1 TSPulse AD-variant rows and Section 3 numbers: measures the per-head
+self-derivative and forward reach for the time and fft reconstruction heads of
+the reference anomaly-detection configuration, and the between-head estimate
+disagreement.
+
+Input: the synthetic window from synthetic.py (seed 20260822), 64 positions.
+Writes results/check4_heads.json. Run: python scripts/table1_tspulse_ad.py (or run_all.sh).
+"""
+
 import json, sys, warnings
 from pathlib import Path
 import numpy as np, torch

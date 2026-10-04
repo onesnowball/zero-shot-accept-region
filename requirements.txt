@@ -39,7 +39,7 @@ multidict==6.9.1
 multiprocess==0.70.19
 networkx==3.6.1
 numpy==1.26.4
-packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work
+packaging==26.3
 pandas==3.0.1
 pillow==12.3.0
 propcache==0.5.4

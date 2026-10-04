@@ -1,22 +1,12 @@
 """
-Measure dxhat[t,c]/dx[t,c] on real public checkpoints, at the configuration
-their anomaly-detection path actually runs.
+Table 1 TSPulse imputation-variant rows: measures the self-derivative
+|d xhat[t,c]/d x[t,c]| on the released checkpoint under two calling conventions,
+all-observed and evaluated-patch-masked.
 
-WHY
-    Two independent readings of TSPulse's AD source reached opposite
-    conclusions about whether the scored point is hidden from the model. One
-    read `patchwise_stitched_reconstruction`, which masks the evaluated patch.
-    The other read `mask_type="user"` with an all-observed mask at test time.
-    Both are readings of prose. Autodiff is not.
-
-PROTOCOL
-    The architectural prediction is recorded here, in this file, before any
-    number is produced. The finding the paper reports is the set of
-    DISAGREEMENTS between prediction and measurement. No disagreements is a
-    reportable outcome that weakens the paper, and it must be reported.
-
-Run:  python3 basisgate/code/checkpoints.py
+Input: the synthetic window from synthetic.py (seed 20260822), 64 positions.
+Writes results/checkpoints.json. Run: python scripts/table1_tspulse_imputation.py (or run_all.sh).
 """
+
 import json
 import warnings
 from pathlib import Path
@@ -100,7 +90,7 @@ def run_tspulse():
               return_loss=False)
         return o.reconstruction_outputs.squeeze(0)
 
-    record("TSPulse, all-observed (R1's reading)", "0",
+    record("TSPulse imputation, all-observed", "0",
            "TSPulse paper A.8.2: AD heads reconstruct the input; masking is "
            "described only for pre-training",
            jac_diag(fn_plain, x, pos),
@@ -119,7 +109,7 @@ def run_tspulse():
               past_observed_mask=obs.unsqueeze(0), return_loss=False)
         return o.reconstruction_outputs.squeeze(0)
 
-    record("TSPulse, evaluated patch masked (R2's reading)", "0",
+    record("TSPulse imputation, evaluated patch masked", "0",
            "granite-tsfm patchwise_stitched_reconstruction: 'Only patches whose "
            "start indices fall within [start,end) are masked and reconstructed'",
            jac_diag(fn_masked, x, pos),

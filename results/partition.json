@@ -89,7 +89,7 @@
       "J_max": 0.42780056595802307,
       "J_p95": 0.4277558997273445,
       "frac_below_1e6": 0.0,
-      "note": "R1's contested case: does a per-layer mask survive composition?"
+      "note": "does a per-layer mask survive composition?"
     },
     {
       "name": "masked attn, 4 layers, 7-wide band (UniAD default)",

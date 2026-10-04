@@ -1,35 +1,16 @@
 """
-Falsify the closed-form-immunity claim in Anand, Nguyen & Pappas (arXiv:2606.06347).
+Section 4, Table 2 and the rollout: reimplements Algorithm 1 of Anand, Nguyen &
+Pappas (arXiv:2606.06347) over public timesfm-2.5-200m weights (per-channel
+one-step forecast, Mahalanobis score on the innovation, threshold by their
+Proposition 1). It measures detector scores for clean data, naive controls, and
+the precomputed substitution, and the 320-step rollout distance from the true
+process.
 
-THEIR CLAIM, verbatim:
-    "thanks to the fact that TimesFM has no closed-form innovation structure for
-     the attacker to exploit, attacks designed to be stealthy against the
-     model-based detector are much harder to be stealthy against TimesFM."
-
-THEIR DETECTOR (their Algorithm 1), reimplemented here exactly:
-    yhat[k] <- TimesFM(B[k-L : k-1])                    # per-channel forecast
-    g_s[k]  <- (ytilde[k]-yhat[k])^T Sigma^-1 (ytilde[k]-yhat[k])
-    alarm iff g_s[k] > tau
-
-WHY THE CLAIM IS FALSE:
-    yhat[k] is a function of the buffer B[k-L:k-1] only. It does NOT read
-    ytilde[k] -- it cannot, by causality: a forecast cannot depend on the value
-    it forecasts. So dyhat_i/dytilde_i = 0, and the attacker who holds the
-    (public, Apache-2.0) weights computes yhat[k] and writes ytilde[k] := yhat[k].
-    Then g_s[k] = 0 identically. One forward pass. No optimisation, no queries,
-    no surrogate, no plant model.
-
-    Their Remark 2 assumes the attacker "has no knowledge of the secondary
-    detector g_s". The weights are on HuggingFace.
-
-SUSTAINED CASE:
-    Their line 12 updates the buffer as theta*ytilde + (1-theta)*yhat, but only
-    when no alarm fires. Under the forgery ytilde == yhat, so that update is
-    theta*yhat + (1-theta)*yhat = yhat for ANY theta. The buffer free-runs on
-    the model's own output and the forgery is self-consistent indefinitely.
-
-Run:  python3 basisgate/code/timesfm_falsify.py
+Inputs: a synthetic 4-channel process (make_system below); seeds 20260822 (default)
+and 11, 22, 33, 44 via BG_SEED. Writes results/timesfm_falsification*.json.
+Run: python scripts/table2_timesfm_falsification.py (BG_SEED=11 ... for other seeds; run_all.sh does all five).
 """
+
 import json
 import time
 from pathlib import Path

@@ -1,17 +1,12 @@
 """
-Full Jacobian rows for TSPulse-r1 under the two calling conventions of
-checkpoints.py, for Figure 1.
+Appendix figure data: records the self-derivative profile |d xhat[t]/d x[t+k]|
+over offsets k in [-K, K] for the TSPulse imputation variant under both calling
+conventions, so the figure shows which inputs the reconstruction at t reads.
 
-checkpoints.py records only the diagonal |dxhat[t,c]/dx[t,c]|. This script
-records |dxhat[t,c]/dx[t+k,c]| for offsets k in [-K, K], so the figure can show
-the mechanism: which inputs the reconstruction at t actually reads.
-
-Same checkpoint, window, seed and probe positions as checkpoints.py. The masked
-call hides the probed position's own patch (one probe at a time, so the
-context the model reads is otherwise intact).
-
-Run:  python3 basisgate/code/tspulse_jacobian_rows.py
+Input: the synthetic window from synthetic.py (seed 20260822), 64 positions.
+Writes results/tspulse_jacobian_rows.json. Run: python scripts/fig_appendix_tspulse.py then make_figure.py (or run_all.sh).
 """
+
 import json
 import sys
 import warnings

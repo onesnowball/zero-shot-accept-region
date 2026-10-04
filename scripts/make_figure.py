@@ -1,8 +1,11 @@
 """
-Figure 1 from results/tspulse_jacobian_rows.json (tspulse_jacobian_rows.py).
+Draws the appendix figure (figures/fig_tspulse.pdf) from
+results/tspulse_jacobian_rows.json, and checks its diagonal against the Table 1
+all-observed value in results/checkpoints.json.
 
-Run:  python3 basisgate/paper/make_figure.py
+Run: python scripts/make_figure.py (or run_all.sh).
 """
+
 import json
 from pathlib import Path
 
@@ -17,7 +20,7 @@ ckpt = json.loads((HERE.parent / "results" / "checkpoints.json").read_text())
 
 # the figure's diagonal must be the Table 1 measurement
 assert abs(d["all_observed"]["diag_median"]
-           - ckpt["TSPulse, all-observed (R1's reading)"]["median"]) < 1e-6
+           - ckpt["TSPulse imputation, all-observed"]["median"]) < 1e-6
 assert d["patch_masked"]["diag_max"] == 0.0
 
 matplotlib.rcParams["pdf.fonttype"] = 42
